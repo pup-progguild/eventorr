@@ -1,5 +1,5 @@
 {
-	"singleevents": [{
+	"singleevents": [
 		{
 			"singleeventid": "1",
 			"singleeventname": "test1",
@@ -40,5 +40,5 @@
 			"imageloc": "null",
 			"singleeventdate": "2013-12-31"
 		}
-	}]
+	]
 }
