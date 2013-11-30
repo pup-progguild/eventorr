@@ -81,11 +81,6 @@ namespace MapExplorer
         /// </summary>
         private void MyMap_Loaded(object sender, RoutedEventArgs e)
         {
-#if DEBUG
-#warning Please obtain a valid application ID and authentication token.
-#else
-#error You must specify a valid application ID and authentication token.
-#endif
             Microsoft.Phone.Maps.MapsSettings.ApplicationContext.ApplicationId = "kQRRojrn0oflZCkHEEe6";
             Microsoft.Phone.Maps.MapsSettings.ApplicationContext.AuthenticationToken = "Ub63cvDQvOImr1ps_h-TvQ";
         }
