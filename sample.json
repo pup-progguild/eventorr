@@ -1,10 +1,6 @@
 {
 	"singleevents": [{
-<<<<<<< HEAD
-		"singleevent": {
-=======
-		
->>>>>>> e04b7f34f6d2cb30437d0dc7c8f4bc7a28284778
+		{
 			"singleeventid": "1",
 			"singleeventname": "test1",
 			"lat": "14.640641",
@@ -12,11 +8,7 @@
 			"imageloc": "null",
 			"singleeventdate": "2013-12-04"
 		},
-<<<<<<< HEAD
-		"singleevent": {
-=======
 		{
->>>>>>> e04b7f34f6d2cb30437d0dc7c8f4bc7a28284778
 			"singleeventid": "2",
 			"singleeventname": "test2",
 			"lat": "14.485917000000001",
@@ -24,11 +16,7 @@
 			"imageloc": "null",
 			"singleeventdate": "2013-12-05"
 		},
-<<<<<<< HEAD
-		"singleevent": {
-=======
 		{
->>>>>>> e04b7f34f6d2cb30437d0dc7c8f4bc7a28284778
 			"singleeventid": "3",
 			"singleeventname": "test3",
 			"lat": "14.564665",
@@ -36,11 +24,7 @@
 			"imageloc": "null",
 			"singleeventdate": "2014-12-04"
 		},
-<<<<<<< HEAD
-		"singleevent": {
-=======
 		{
->>>>>>> e04b7f34f6d2cb30437d0dc7c8f4bc7a28284778
 			"singleeventid": "4",
 			"singleeventname": "test4",
 			"lat": "14.550955",
@@ -48,11 +32,7 @@
 			"imageloc": "null",
 			"singleeventdate": "2014-1-04"
 		},
-<<<<<<< HEAD
-		"singleevent": {
-=======
 		{
->>>>>>> e04b7f34f6d2cb30437d0dc7c8f4bc7a28284778
 			"singleeventid": "5",
 			"singleeventname": "test5",
 			"lat": "14.556952000000001",
@@ -60,10 +40,5 @@
 			"imageloc": "null",
 			"singleeventdate": "2013-12-31"
 		}
-<<<<<<< HEAD
 	}]
 }
-=======
-	]
-}
->>>>>>> e04b7f34f6d2cb30437d0dc7c8f4bc7a28284778
