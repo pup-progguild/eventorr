@@ -1,6 +1,14 @@
 {
 	"singleevents": [{
-		"singleevent": {
+		{
+			"singleeventid": "1",
+			"singleeventname": "test1",
+			"lat": "14.640641",
+			"longitude": "121.01487400000001",
+			"imageloc": "null",
+			"singleeventdate": "2013-12-04"
+		},
+		{
 			"singleeventid": "2",
 			"singleeventname": "test2",
 			"lat": "14.485917000000001",
@@ -8,7 +16,7 @@
 			"imageloc": "null",
 			"singleeventdate": "2013-12-05"
 		},
-		"singleevent": {
+		{
 			"singleeventid": "3",
 			"singleeventname": "test3",
 			"lat": "14.564665",
@@ -16,7 +24,7 @@
 			"imageloc": "null",
 			"singleeventdate": "2014-12-04"
 		},
-		"singleevent": {
+		{
 			"singleeventid": "4",
 			"singleeventname": "test4",
 			"lat": "14.550955",
@@ -24,21 +32,13 @@
 			"imageloc": "null",
 			"singleeventdate": "2014-1-04"
 		},
-		"singleevent": {
+		{
 			"singleeventid": "5",
 			"singleeventname": "test5",
 			"lat": "14.556952000000001",
 			"longitude": "121.020205",
 			"imageloc": "null",
 			"singleeventdate": "2013-12-31"
-		},
-		"singleevent": {
-			"singleeventid": "1",
-			"singleeventname": "test1",
-			"lat": "14.640641",
-			"longitude": "121.01487400000001",
-			"imageloc": "null",
-			"singleeventdate": "2013-12-04"
 		}
 	}]
 }
