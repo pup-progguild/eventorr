@@ -1,43 +1,45 @@
 {
 	"events": [{
-		"eventid": "1",
-		"eventname": "test1",
-		"lat": "14.640641",
-		"long": "121.01487400000001",
-		"imageloc": null,
-		"eventdate": "2013-12-04"
-	},
-	{
-		"eventid": "2",
-		"eventname": "test2",
-		"lat": "14.485917000000001",
-		"long": "121.039772",
-		"imageloc": null,
-		"eventdate": "2013-12-05"
-	},
-	{
-		"eventid": "3",
-		"eventname": "test3",
-		"lat": "14.564665",
-		"long": "120.99233700000001",
-		"imageloc": null,
-		"eventdate": "2014-12-04"
-	},
-	{
-		"eventid": "4",
-		"eventname": "test4",
-		"lat": "14.550955",
-		"long": "121.019111",
-		"imageloc": null,
-		"eventdate": "2014-1-04"
-	},
-	{
-		"eventid": "5",
-		"eventname": "test5",
-		"lat": "14.556952000000001",
-		"long": "121.020205",
-		"imageloc": null,
-		"eventdate": "2013-12-31"
+		"event": {
+			"eventid": "1",
+			"eventname": "test1",
+			"lat": "14.640641",
+			"long": "121.01487400000001",
+			"imageloc": null,
+			"eventdate": "2013-12-04"
+		},
+		"event": {
+			"eventid": "2",
+			"eventname": "test2",
+			"lat": "14.485917000000001",
+			"long": "121.039772",
+			"imageloc": null,
+			"eventdate": "2013-12-05"
+		},
+		"event": {
+			"eventid": "3",
+			"eventname": "test3",
+			"lat": "14.564665",
+			"long": "120.99233700000001",
+			"imageloc": null,
+			"eventdate": "2014-12-04"
+		},
+		"event": {
+			"eventid": "4",
+			"eventname": "test4",
+			"lat": "14.550955",
+			"long": "121.019111",
+			"imageloc": null,
+			"eventdate": "2014-1-04"
+		},
+		"event": {
+			"eventid": "5",
+			"eventname": "test5",
+			"lat": "14.556952000000001",
+			"long": "121.020205",
+			"imageloc": null,
+			"eventdate": "2013-12-31"
+		}
 	}],
 	"success": 1
 }
