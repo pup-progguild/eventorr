@@ -1,14 +1,6 @@
 {
 	"singleevents": [{
 		"singleevent": {
-			"singleeventid": "1",
-			"singleeventname": "test1",
-			"lat": "14.640641",
-			"longitude": "121.01487400000001",
-			"imageloc": "null",
-			"singleeventdate": "2013-12-04"
-		},
-		"singleevent": {
 			"singleeventid": "2",
 			"singleeventname": "test2",
 			"lat": "14.485917000000001",
@@ -39,6 +31,14 @@
 			"longitude": "121.020205",
 			"imageloc": "null",
 			"singleeventdate": "2013-12-31"
+		},
+		"singleevent": {
+			"singleeventid": "1",
+			"singleeventname": "test1",
+			"lat": "14.640641",
+			"longitude": "121.01487400000001",
+			"imageloc": "null",
+			"singleeventdate": "2013-12-04"
 		}
 	}]
 }
