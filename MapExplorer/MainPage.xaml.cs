@@ -26,6 +26,7 @@ using Microsoft.Phone.Maps.Services;
 using Microsoft.Phone.Shell;
 using Microsoft.Phone.Tasks;
 using MapExplorer.Resources;
+using Newtonsoft.Json;
 
 namespace MapExplorer
 {
@@ -663,8 +664,21 @@ namespace MapExplorer
                 }
             }
 
+            /// TODO flag where the eff are the events
+            plotEvents();
+
             MyMap.Layers.Add(mapLayer);
         }
+
+        private void plotEvents() {
+            var currencyRates = _download_serialized_json_data<Events>(events_data); 
+        }
+
+        private static T _download_serialized_json_data<T>(String json_data) where T : new()
+        {
+            // if string with JSON data is not empty, deserialize it to class and return its instance 
+            return !string.IsNullOrEmpty(json_data) ? JsonConvert.DeserializeObject<T>(json_data) : new T();
+        } 
 
         private void GetEvents() {
             var url =
@@ -680,10 +694,13 @@ namespace MapExplorer
         }
 
         private void eventsCallback(object sender, DownloadStringCompletedEventArgs e) {
-            var json_data = string.Empty;
-            if (!e.Cancelled && e.Error == null)
-            {
-                string textString = (string)e.Result;           
+            events_data = string.Empty;
+            if (!e.Cancelled && e.Error == null) {
+                _isEventsFound = true;
+                events_data = (string)e.Result;
+
+            } else {
+                _isEventsFound = false;
             }
 
         }
@@ -917,9 +934,19 @@ namespace MapExplorer
         private double _accuracy = 0.0;
 
         /// <summary>
+        /// True when Events are found
+        /// </summary>
+        private bool _isEventsFound = false;
+
+        /// <summary>
         /// Used for saving location usage permission
         /// </summary>
         private IsolatedStorageSettings Settings;
+
+        /// <summary>
+        /// Event JSON
+        /// </summary>
+        private String events_data;
 
     }
 }

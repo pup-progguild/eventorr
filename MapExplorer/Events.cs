@@ -1,15 +1,27 @@
-﻿namespace MapExplorer {
-    internal class Events {
-        public class Rootobject {
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MapExplorer
+{
+    class Events
+    {
+
+        public class Rootobject
+        {
             public Event[] events { get; set; }
         }
 
-        public class Event {
+        public class Event
+        {
             public Summary summary { get; set; }
             public Event1 _event { get; set; }
         }
 
-        public class Summary {
+        public class Summary
+        {
             public int total_items { get; set; }
             public long first_event { get; set; }
             public long last_event { get; set; }
@@ -17,10 +29,14 @@
             public int num_showing { get; set; }
         }
 
-        public class Filters {
+        public class Filters
+        {
+            public string country { get; set; }
+            public string region { get; set; }
         }
 
-        public class Event1 {
+        public class Event1
+        {
             public string box_header_text_color { get; set; }
             public string locale { get; set; }
             public string link_color { get; set; }
@@ -56,7 +72,8 @@
             public string repeats { get; set; }
         }
 
-        public class Organizer {
+        public class Organizer
+        {
             public string url { get; set; }
             public string description { get; set; }
             public string long_description { get; set; }
@@ -64,7 +81,8 @@
             public string name { get; set; }
         }
 
-        public class Venue {
+        public class Venue
+        {
             public string city { get; set; }
             public string name { get; set; }
             public string country { get; set; }
@@ -79,23 +97,26 @@
             public string LatLong { get; set; }
         }
 
-        public class Ticket {
+        public class Ticket
+        {
             public Ticket1 ticket { get; set; }
         }
 
-        public class Ticket1 {
+        public class Ticket1
+        {
             public string description { get; set; }
             public string end_date { get; set; }
             public int min { get; set; }
             public int? max { get; set; }
             public string price { get; set; }
             public string visible { get; set; }
-            public string start_date { get; set; }
             public string currency { get; set; }
             public string display_price { get; set; }
             public int type { get; set; }
             public int id { get; set; }
             public string name { get; set; }
+            public string start_date { get; set; }
         }
+
     }
 }
