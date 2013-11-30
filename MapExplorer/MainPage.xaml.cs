@@ -57,7 +57,7 @@ namespace MapExplorer
                     GetCurrentCoordinate();
                 }
             }
-            GetEvents();
+            
             DrawMapMarkers();
         }
 
@@ -663,8 +663,15 @@ namespace MapExplorer
                 }
             }
 
-            /// TODO flag where the eff are the events
+            GetEvents();
             plotEvents();
+
+            /// TODO flag where the eff are the events
+            if (_isEventsCoordinated) {
+                foreach (var geoCoordinate in myEventsList) {
+                    DrawMapMarker(geoCoordinate, Colors.Green, mapLayer);
+                }
+            }
 
             MyMap.Layers.Add(mapLayer);
         }
@@ -673,13 +680,15 @@ namespace MapExplorer
         {
             EventList events_json = new EventList();
 
-            if (_isEventsFound)
-            {
+            if (_isEventsFound) {
                 events_json = JsonConvert.DeserializeObject<EventList>(events_data);
+                _isEventsCoordinated = true;
+                var integer = events_json.singleevents.Count;
+            } else {
+                _isEventsCoordinated = false;
             }
-            
-            
 
+            
         }
 
 
@@ -945,6 +954,12 @@ namespace MapExplorer
         private bool _isEventsFound = false;
 
         /// <summary>
+        /// True when Events have been converted to coords.
+        /// </summary>
+        private bool _isEventsCoordinated = false;
+
+
+        /// <summary>
         /// Used for saving location usage permission
         /// </summary>
         private IsolatedStorageSettings Settings;
@@ -953,6 +968,11 @@ namespace MapExplorer
         /// Event JSON
         /// </summary>
         private String events_data;
+
+        /// <summary>
+        /// My Events store
+        /// </summary>
+        private List<GeoCoordinate> myEventsList = new List<GeoCoordinate>();
 
     }
 }
