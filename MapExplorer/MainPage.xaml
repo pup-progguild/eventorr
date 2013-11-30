@@ -20,7 +20,7 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
-    shell:SystemTray.IsVisible="False">
+    shell:SystemTray.IsVisible="True">
 
     <phone:PhoneApplicationPage.Resources>
         <DataTemplate x:Key="RouteListTemplate">
@@ -38,9 +38,9 @@
         </Grid.RowDefinitions>
 
         <!--TitlePanel contains the name of the application and page title-->
-        <!--<StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,12">
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,12">
             <TextBlock Text="{Binding Path=LocalizedResources.ApplicationTitle, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextNormalStyle}"/>
-        </StackPanel>-->
+        </StackPanel>
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1">
@@ -59,21 +59,19 @@
             IsGroupingEnabled="False" SelectionChanged="RouteManeuverSelected"/>
 
         <!--Panel of buttons to control map cartography mode-->
-        <!--
         <StackPanel Grid.RowSpan="4" x:Name="ModePanel" Orientation="Vertical" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="281" Margin="0,0,0,12">
             <Button x:Name="RoadButton" Content="Road" IsEnabled="False" Click="CartographicModeButton_Click"/>
             <Button x:Name="AerialButton" Content="Aerial" Click="CartographicModeButton_Click"/>
             <Button x:Name="HybridButton" Content="Hybrid" Click="CartographicModeButton_Click"/>
             <Button x:Name="TerrainButton" Content="Terrain" Click="CartographicModeButton_Click"/>
-        </StackPanel>-->
+        </StackPanel>
 
         <!--Sliders to control map pitch and heading.-->
-        <Slider x:Name="PitchSlider" Grid.RowSpan="2" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="211" Width="45" Margin="0,0,33,97" Minimum="0" Maximum="70" Value="0" ValueChanged="PitchValueChanged"/>
-        <Slider x:Name="HeadingSlider" Grid.RowSpan="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="80" Width="250" Margin="114,0,116,0" Maximum="540" Minimum="180" Value="360" ValueChanged="HeadingValueChanged"/>
+        <Slider x:Name="PitchSlider" Grid.RowSpan="4" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="211" Width="45" Margin="0,0,12,82" Minimum="0" Maximum="70" Value="0" ValueChanged="PitchValueChanged"/>
+        <Slider x:Name="HeadingSlider" Grid.RowSpan="4" VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="80" Width="250" Margin="0,0,0,-20" Maximum="540" Minimum="180" Value="360" ValueChanged="HeadingValueChanged"/>
 
         <!--Location panel is shown at application startup 
             asking for permission to location data.-->
-        <!--
         <Grid x:Name="LocationPanel" Margin="0,0,0,0" Grid.RowSpan="2" Background="#333333">
             <StackPanel Grid.Row="1" Margin="12,12,12,0">
                 <TextBlock Margin="12,0,12,0" Text="{Binding Path=LocalizedResources.LocationUsageQueryText, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextTitle2Style}" TextWrapping="Wrap"/>
@@ -83,12 +81,12 @@
                 <Button x:Name="AllowButton" Content="{Binding Path=LocalizedResources.LocationAllowButtonText, Source={StaticResource LocalizedStrings}}" HorizontalAlignment="Left" Width="200" Click="LocationUsage_Click"/>
                 <Button x:Name ="CancelButton" Content="{Binding Path=LocalizedResources.LocationCancelButtonText, Source={StaticResource LocalizedStrings}}" HorizontalAlignment="Right" Width="200" Click="LocationUsage_Click"/>
             </StackPanel>
-        </Grid>-->
+        </Grid>
 
         <!--Uncomment to see an alignment grid to help ensure your controls are
             aligned on common boundaries.  Remove or comment out before shipping
             your application.-->
         <!--<Image Margin="0" Source="/Assets/AlignmentGrid.png" Stretch="None" IsHitTestVisible="False" />-->
     </Grid>
-
+    
 </phone:PhoneApplicationPage>
