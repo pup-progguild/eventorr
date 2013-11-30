@@ -24,7 +24,11 @@
 
     <phone:PhoneApplicationPage.Resources>
         <DataTemplate x:Key="RouteListTemplate">
-            <TextBlock Text="{Binding}" FontSize="{StaticResource PhoneFontSizeMedium}" TextWrapping="Wrap" Margin="5,5,0,0"/>
+            <Grid x:Name="ContentPanel" Grid.Row="1">
+                <TextBlock Text="{Binding EventTitle}" FontSize="{StaticResource PhoneFontSizeMedium}" TextWrapping="Wrap" Margin="5,5,0,0"/>
+                <TextBlock Text="{Binding EventAddress}" FontSize="{StaticResource PhoneFontSizeMedium}" TextWrapping="Wrap" Margin="5,5,0,0"/>
+                <TextBlock Text="{Binding EventDate}" FontSize="{StaticResource PhoneFontSizeMedium}" TextWrapping="Wrap" Margin="5,5,0,0"/>
+            </Grid>
         </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
 
@@ -60,10 +64,13 @@
 
         <!--Panel of buttons to control map cartography mode-->
         <StackPanel Grid.RowSpan="4" x:Name="ModePanel" Orientation="Vertical" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="281" Margin="0,0,0,12">
+            <!-- OVERLAY BUTTONS -->
+            <!--
             <Button x:Name="RoadButton" Content="Road" IsEnabled="False" Click="CartographicModeButton_Click"/>
             <Button x:Name="AerialButton" Content="Aerial" Click="CartographicModeButton_Click"/>
             <Button x:Name="HybridButton" Content="Hybrid" Click="CartographicModeButton_Click"/>
             <Button x:Name="TerrainButton" Content="Terrain" Click="CartographicModeButton_Click"/>
+            -->
         </StackPanel>
 
         <!--Sliders to control map pitch and heading.-->

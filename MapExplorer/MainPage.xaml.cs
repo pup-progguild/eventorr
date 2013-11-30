@@ -83,11 +83,6 @@ namespace MapExplorer
         /// </summary>
         private void MyMap_Loaded(object sender, RoutedEventArgs e)
         {
-#if DEBUG
-#warning Please obtain a valid application ID and authentication token.
-#else
-#error You must specify a valid application ID and authentication token.
-#endif
             Microsoft.Phone.Maps.MapsSettings.ApplicationContext.ApplicationId = "__ApplicationID__";
             Microsoft.Phone.Maps.MapsSettings.ApplicationContext.AuthenticationToken = "__AuthenticationToken__";
         }
@@ -306,6 +301,7 @@ namespace MapExplorer
             }
         }
 
+        /*
         /// <summary>
         /// Event handler for clicking cartographic mode buttons.
         /// </summary>
@@ -351,6 +347,7 @@ namespace MapExplorer
                 TerrainButton.IsEnabled = false;
             }
         }
+         */
 
         /// <summary>
         /// Event handler for clicking travel mode buttons.
@@ -696,7 +693,7 @@ namespace MapExplorer
 
             // Specify that the DownloadStringCallback2 method gets called 
             // when the download completes.
-            client.DownloadStringCompleted += new DownloadStringCompletedEventHandler(eventsCallback);
+            client.DownloadStringCompleted += new DownloadStringCompletedEventHandler(eventsCallback);      
             client.DownloadStringAsync(uri);
         }
 
@@ -707,9 +704,8 @@ namespace MapExplorer
             {
                 _isEventsFound = true;
                 events_data = (string)e.Result;
-            }
-            else
-            {
+        } else {
+
                 _isEventsFound = false;
             }
 
