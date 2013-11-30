@@ -667,7 +667,7 @@ namespace MapExplorer
             MyMap.Layers.Add(mapLayer);
         }
 
-        private static T _download_serialized_json_data<T>(string url) where T : new() {
+        private static T _download_serialized_json_data<T>(string url) where T : new () {
             var w = new WebClient();
                 var json_data = string.Empty;
                 // attempt to download JSON data as a string
