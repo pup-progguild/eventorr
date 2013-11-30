@@ -54,7 +54,7 @@ namespace MapExplorer
                     GetCurrentCoordinate();
                 }
             }
-
+            GetEvents();
             DrawMapMarkers();
         }
 
@@ -664,6 +664,28 @@ namespace MapExplorer
             }
 
             MyMap.Layers.Add(mapLayer);
+        }
+
+        private void GetEvents() {
+            var url =
+                "http://www.eventbrite.com/json/event_search?app_key=SK6HU3BS44LNJIBDYK&region=NCR&country=PH";
+
+            WebClient client = new WebClient();
+            Uri uri = new Uri(url);
+
+            // Specify that the DownloadStringCallback2 method gets called 
+            // when the download completes.
+            client.DownloadStringCompleted += new DownloadStringCompletedEventHandler(eventsCallback);
+            client.DownloadStringAsync(uri);
+        }
+
+        private void eventsCallback(object sender, DownloadStringCompletedEventArgs e) {
+            var json_data = string.Empty;
+            if (!e.Cancelled && e.Error == null)
+            {
+                string textString = (string)e.Result;           
+            }
+
         }
 
         /// <summary>
