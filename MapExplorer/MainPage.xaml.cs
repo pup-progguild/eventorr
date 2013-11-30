@@ -26,6 +26,7 @@ using Microsoft.Phone.Maps.Services;
 using Microsoft.Phone.Shell;
 using Microsoft.Phone.Tasks;
 using MapExplorer.Resources;
+using Newtonsoft.Json;
 
 namespace MapExplorer
 {
@@ -49,7 +50,7 @@ namespace MapExplorer
                 LoadSettings();
                 if (_isLocationAllowed)
                 {
-                    LocationPanel.Visibility = Visibility.Collapsed;
+                    //LocationPanel.Visibility = Visibility.Collapsed;
                     BuildApplicationBar();
                     GetCurrentCoordinate();
                 }
@@ -63,14 +64,14 @@ namespace MapExplorer
         /// </summary>
         private void LocationUsage_Click(object sender, EventArgs e)
         {
-            LocationPanel.Visibility = Visibility.Collapsed;
+            //LocationPanel.Visibility = Visibility.Collapsed;
             BuildApplicationBar();
-            if (sender == AllowButton)
-            {
-                _isLocationAllowed = true;
-                SaveSettings();
-                GetCurrentCoordinate();
-            }
+            //if (sender == AllowButton)
+            //{
+            //    _isLocationAllowed = true;
+            //    SaveSettings();
+            //    GetCurrentCoordinate();
+            //}
         }
 
         /// <summary>
@@ -85,8 +86,8 @@ namespace MapExplorer
 #else
 #error You must specify a valid application ID and authentication token.
 #endif
-            Microsoft.Phone.Maps.MapsSettings.ApplicationContext.ApplicationId = "__ApplicationID__";
-            Microsoft.Phone.Maps.MapsSettings.ApplicationContext.AuthenticationToken = "__AuthenticationToken__";
+            Microsoft.Phone.Maps.MapsSettings.ApplicationContext.ApplicationId = "kQRRojrn0oflZCkHEEe6";
+            Microsoft.Phone.Maps.MapsSettings.ApplicationContext.AuthenticationToken = "Ub63cvDQvOImr1ps_h-TvQ";
         }
 
         /// <summary>
@@ -306,48 +307,48 @@ namespace MapExplorer
         /// <summary>
         /// Event handler for clicking cartographic mode buttons.
         /// </summary>
-        private void CartographicModeButton_Click(object sender, EventArgs e)
-        {
-            RoadButton.IsEnabled = true;
-            AerialButton.IsEnabled = true;
-            HybridButton.IsEnabled = true;
-            TerrainButton.IsEnabled = true;
-            AppBarColorModeMenuItem.IsEnabled = false;
+        //private void CartographicModeButton_Click(object sender, EventArgs e)
+        //{
+        //    //RoadButton.IsEnabled = true;
+        //    //AerialButton.IsEnabled = true;
+        //    //HybridButton.IsEnabled = true;
+        //    //TerrainButton.IsEnabled = true;
+        //    AppBarColorModeMenuItem.IsEnabled = false;
 
-            if (sender == RoadButton)
-            {
-                AppBarColorModeMenuItem.IsEnabled = true;
-                // To change color mode back to dark
-                if (_isTemporarilyLight)
-                {
-                    _isTemporarilyLight = false;
-                    MyMap.ColorMode = MapColorMode.Dark;
-                }
-                MyMap.CartographicMode = MapCartographicMode.Road;
-                RoadButton.IsEnabled = false;
-            }
-            else if (sender == AerialButton)
-            {
-                MyMap.CartographicMode = MapCartographicMode.Aerial;
-                AerialButton.IsEnabled = false;
-            }
-            else if (sender == HybridButton)
-            {
-                MyMap.CartographicMode = MapCartographicMode.Hybrid;
-                HybridButton.IsEnabled = false;
-            }
-            else if (sender == TerrainButton)
-            {
-                // To enable terrain mode when color mode is dark
-                if (MyMap.ColorMode == MapColorMode.Dark)
-                {
-                    _isTemporarilyLight = true;
-                    MyMap.ColorMode = MapColorMode.Light;
-                }
-                MyMap.CartographicMode = MapCartographicMode.Terrain;
-                TerrainButton.IsEnabled = false;
-            }
-        }
+        //    if (sender == RoadButton)
+        //    {
+        //        AppBarColorModeMenuItem.IsEnabled = true;
+        //        // To change color mode back to dark
+        //        if (_isTemporarilyLight)
+        //        {
+        //            _isTemporarilyLight = false;
+        //            MyMap.ColorMode = MapColorMode.Dark;
+        //        }
+        //        MyMap.CartographicMode = MapCartographicMode.Road;
+        //        RoadButton.IsEnabled = false;
+        //    }
+        //    else if (sender == AerialButton)
+        //    {
+        //        MyMap.CartographicMode = MapCartographicMode.Aerial;
+        //        AerialButton.IsEnabled = false;
+        //    }
+        //    else if (sender == HybridButton)
+        //    {
+        //        MyMap.CartographicMode = MapCartographicMode.Hybrid;
+        //        HybridButton.IsEnabled = false;
+        //    }
+        //    else if (sender == TerrainButton)
+        //    {
+        //        // To enable terrain mode when color mode is dark
+        //        if (MyMap.ColorMode == MapColorMode.Dark)
+        //        {
+        //            _isTemporarilyLight = true;
+        //            MyMap.ColorMode = MapColorMode.Light;
+        //        }
+        //        MyMap.CartographicMode = MapCartographicMode.Terrain;
+        //        TerrainButton.IsEnabled = false;
+        //    }
+        //}
 
         /// <summary>
         /// Event handler for clicking travel mode buttons.
@@ -394,7 +395,7 @@ namespace MapExplorer
         /// Event handler for map zoom level value change.
         /// Drawing accuracy radius has dependency on map zoom level.
         /// </summary>
-        private void ZoomLevelChanged(object sender, EventArgs e)
+        private void ZoomLevelChanged(object sender, MapZoomLevelChangedEventArgs mapZoomLevelChangedEventArgs)
         {
             DrawMapMarkers();
         }
@@ -408,7 +409,7 @@ namespace MapExplorer
             AppBarDirectionsMenuItem.Text = AppResources.DirectionsOffMenuItemText;
             DirectionsTitleRowDefinition.Height = GridLength.Auto;
             DirectionsRowDefinition.Height = new GridLength(2, GridUnitType.Star);
-            ModePanel.Visibility = Visibility.Collapsed;
+            //ModePanel.Visibility = Visibility.Collapsed;
             HeadingSlider.Visibility = Visibility.Collapsed;
             PitchSlider.Visibility = Visibility.Collapsed;
         }
@@ -422,7 +423,7 @@ namespace MapExplorer
             AppBarDirectionsMenuItem.Text = AppResources.DirectionsOnMenuItemText;
             DirectionsTitleRowDefinition.Height = new GridLength(0);
             DirectionsRowDefinition.Height = new GridLength(0);
-            ModePanel.Visibility = Visibility.Visible;
+            //ModePanel.Visibility = Visibility.Visible;
             HeadingSlider.Visibility = Visibility.Visible;
             PitchSlider.Visibility = Visibility.Visible;
         }
@@ -664,6 +665,27 @@ namespace MapExplorer
             }
 
             MyMap.Layers.Add(mapLayer);
+        }
+
+        private static T _download_serialized_json_data<T>(string url) where T : new()
+        {
+            using (var w = new WebClient())
+            {
+                var json_data = string.Empty;
+                // attempt to download JSON data as a string
+                try
+                {
+                    json_data = w.DownloadString(url);
+                }
+                catch (Exception) { }
+                // if string with JSON data is not empty, deserialize it to class and return its instance 
+                return !string.IsNullOrEmpty(json_data) ? JsonConvert.DeserializeObject<T>(json_data) : new T();
+            }
+        } 
+
+        private void GetEvents() {
+            var url = "https://www.eventbrite.com/json/event_search?app_key=SK6HU3BS44LNJIBDYK&";
+            var json = 
         }
 
         /// <summary>
