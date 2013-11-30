@@ -10,16 +10,17 @@ namespace MapExplorer
 {
     public class EventList
     {
-        public List<EventDetails> singleevents { get; set; }
+        public List<EventDetails> events { get; set; }
+        public int success { get; set; }
     }
 
     public class EventDetails
     {
-        public string singleeventid { get; set; }
-        public string singleeventname { get; set; }
-        public string lat { get; set; }
+        public string eventid { get; set; }
+        public string eventname { get; set; }
+        public string latitude { get; set; }
         public string longitude { get; set; }
         public string imageloc { get; set; }
-        public string singleeventdate { get; set; }
+        public string eventdate { get; set; }
     }
 }
