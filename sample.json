@@ -1,5 +1,4 @@
-{
-	"events": [{
+[{
 		"event": {
 			"eventid": "1",
 			"eventname": "test1",
@@ -40,6 +39,4 @@
 			"imageloc": null,
 			"eventdate": "2013-12-31"
 		}
-	}],
-	"success": 1
-}
+	}]
