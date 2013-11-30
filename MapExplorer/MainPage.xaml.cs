@@ -669,8 +669,7 @@ namespace MapExplorer
 
         private static void download_serialized_json_data(){
             var url = "https://www.eventbrite.com/json/event_search?app_key=SK6HU3BS44LNJIBDYK&";
-            
-
+           
             var w = new WebClient();
             string json_data = string.Empty;
             // attempt to download JSON data as a string
