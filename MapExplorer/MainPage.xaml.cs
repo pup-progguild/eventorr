@@ -12,6 +12,7 @@ using System.Device.Location;
 using System.IO.IsolatedStorage;
 using System.Linq;
 using System.Net;
+using System.Runtime.Serialization.Json;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -27,6 +28,7 @@ using Microsoft.Phone.Shell;
 using Microsoft.Phone.Tasks;
 using MapExplorer.Resources;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace MapExplorer
 {
@@ -516,8 +518,8 @@ namespace MapExplorer
                 // Update route information and directions
                 DestinationText.Text = SearchTextBox.Text;
                 double distanceInKm = (double)MyRoute.LengthInMeters / 1000;
-                DestinationDetailsText.Text = distanceInKm.ToString("0.0") + " km, " 
-                                              + MyRoute.EstimatedDuration.Hours + " hrs " 
+                DestinationDetailsText.Text = distanceInKm.ToString("0.0") + " km, "
+                                              + MyRoute.EstimatedDuration.Hours + " hrs "
                                               + MyRoute.EstimatedDuration.Minutes + " mins.";
 
                 List<string> routeInstructions = new List<string>();
@@ -670,19 +672,24 @@ namespace MapExplorer
             MyMap.Layers.Add(mapLayer);
         }
 
-        private void plotEvents() {
-            var currencyRates = _download_serialized_json_data<Events>(events_data); 
+        private void plotEvents()
+        {
+            EventList events_json = new EventList();
+
+            if (_isEventsFound)
+            {
+                events_json = JsonConvert.DeserializeObject<EventList>(events_data);
+            }
+            
+            
+
         }
 
-        private static T _download_serialized_json_data<T>(String json_data) where T : new()
-        {
-            // if string with JSON data is not empty, deserialize it to class and return its instance 
-            return !string.IsNullOrEmpty(json_data) ? JsonConvert.DeserializeObject<T>(json_data) : new T();
-        } 
 
-        private void GetEvents() {
+        private void GetEvents()
+        {
             var url =
-                "http://www.eventbrite.com/json/event_search?app_key=SK6HU3BS44LNJIBDYK&region=NCR&country=PH";
+                "https://raw.github.com/pup-progguild/eventorr/master/sample.json";
 
             WebClient client = new WebClient();
             Uri uri = new Uri(url);
@@ -693,13 +700,16 @@ namespace MapExplorer
             client.DownloadStringAsync(uri);
         }
 
-        private void eventsCallback(object sender, DownloadStringCompletedEventArgs e) {
+        private void eventsCallback(object sender, DownloadStringCompletedEventArgs e)
+        {
             events_data = string.Empty;
-            if (!e.Cancelled && e.Error == null) {
+            if (!e.Cancelled && e.Error == null)
+            {
                 _isEventsFound = true;
                 events_data = (string)e.Result;
-
-            } else {
+            }
+            else
+            {
                 _isEventsFound = false;
             }
 
