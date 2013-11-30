@@ -24,11 +24,11 @@
 
     <phone:PhoneApplicationPage.Resources>
         <DataTemplate x:Key="RouteListTemplate">
-            <Grid x:Name="ContentPanel" Grid.Row="1">
+            <StackPanel x:Name="ContentPanel" Grid.Row="1">
                 <TextBlock Text="{Binding EventTitle}" FontSize="{StaticResource PhoneFontSizeMedium}" TextWrapping="Wrap" Margin="5,5,0,0"/>
                 <TextBlock Text="{Binding EventAddress}" FontSize="{StaticResource PhoneFontSizeMedium}" TextWrapping="Wrap" Margin="5,5,0,0"/>
                 <TextBlock Text="{Binding EventDate}" FontSize="{StaticResource PhoneFontSizeMedium}" TextWrapping="Wrap" Margin="5,5,0,0"/>
-            </Grid>
+            </StackPanel>
         </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
 
@@ -45,11 +45,27 @@
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,12">
             <TextBlock Text="{Binding Path=LocalizedResources.ApplicationTitle, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextNormalStyle}"/>
         </StackPanel>
+        <Grid Height="89" Margin="10,22,10,0" VerticalAlignment="Top" Background="Black" Grid.Row="1">
+            <Slider x:Name="HeadingSlider" VerticalAlignment="Bottom" Height="80" Margin="78,0,0,10" Maximum="540" Minimum="180" Value="360" ValueChanged="HeadingValueChanged" HorizontalAlignment="Left" Width="250"/>
+            <Slider x:Name="PitchSlider" Orientation="Vertical" HorizontalAlignment="Right" Width="45" Margin="0,1,34,10" Minimum="0" Maximum="70" Value="0" ValueChanged="PitchValueChanged"/>
+        </Grid>
 
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1">
-            <maps:Map x:Name="MyMap" ZoomLevelChanged="ZoomLevelChanged" Loaded="MyMap_Loaded" />
-            <TextBox x:Name="SearchTextBox" Visibility="Collapsed" InputScope="Maps" LostFocus="SearchTextBox_LostFocus" KeyDown="SearchTextBox_KeyDown" HorizontalAlignment="Left" Height="72" Margin="12,0,12,10" TextWrapping="Wrap" VerticalAlignment="Top" Width="456"/>
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="0,111,0,0">
+            <maps:Map x:Name="MyMap" ZoomLevelChanged="ZoomLevelChanged" Loaded="MyMap_Loaded" Grid.Row="1" Height="600" />
+            <Grid x:Name="EventPanel" HorizontalAlignment="Left" Width="480" Background="Black" Height="325" VerticalAlignment="Bottom" Visibility="Collapsed">
+                <phone:LongListSelector x:Name="EventLLS" Margin="10">
+                    <phone:LongListSelector.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Grid.Row="2">
+                                <TextBlock Text="primary" FontSize="{StaticResource PhoneFontSizeMediumLarge}"/>
+                                <TextBlock Text="secondary" FontSize="{StaticResource PhoneFontSizeSmall}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </phone:LongListSelector.ItemTemplate>
+                </phone:LongListSelector>
+            </Grid>
+            <!-- <TextBox x:Name="SearchTextBox" Visibility="Collapsed" InputScope="Maps" LostFocus="SearchTextBox_LostFocus" KeyDown="SearchTextBox_KeyDown" HorizontalAlignment="Left" Height="72" Margin="12,0,12,10" TextWrapping="Wrap" VerticalAlignment="Top" Width="456"/> -->
         </Grid>
 
         <!--Directions from current location to destination are shown in this panel.-->
@@ -74,12 +90,10 @@
         </StackPanel>
 
         <!--Sliders to control map pitch and heading.-->
-        <Slider x:Name="PitchSlider" Grid.RowSpan="4" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="211" Width="45" Margin="0,0,12,82" Minimum="0" Maximum="70" Value="0" ValueChanged="PitchValueChanged"/>
-        <Slider x:Name="HeadingSlider" Grid.RowSpan="4" VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="80" Width="250" Margin="0,0,0,-20" Maximum="540" Minimum="180" Value="360" ValueChanged="HeadingValueChanged"/>
 
         <!--Location panel is shown at application startup 
             asking for permission to location data.-->
-        <Grid x:Name="LocationPanel" Margin="0,0,0,0" Grid.RowSpan="2" Background="#333333">
+        <Grid x:Name="LocationPanel" Margin="0,0,0,0" Grid.RowSpan="2" Background="#333333" d:IsHidden="True">
             <StackPanel Grid.Row="1" Margin="12,12,12,0">
                 <TextBlock Margin="12,0,12,0" Text="{Binding Path=LocalizedResources.LocationUsageQueryText, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextTitle2Style}" TextWrapping="Wrap"/>
                 <TextBlock Margin="12,10,12,0" Text="{Binding Path=LocalizedResources.LocationUsageInfoText, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap"/>
@@ -95,5 +109,5 @@
             your application.-->
         <!--<Image Margin="0" Source="/Assets/AlignmentGrid.png" Stretch="None" IsHitTestVisible="False" />-->
     </Grid>
-    
+
 </phone:PhoneApplicationPage>

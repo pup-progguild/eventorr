@@ -34,6 +34,13 @@ namespace MapExplorer
 {
     public partial class MainPage : PhoneApplicationPage
     {
+        private EventList _events_json;
+
+        public EventList events_json
+        {
+            get { return _events_json; }
+            set { _events_json = value; }
+        }
         // Constructor
         public MainPage()
         {
@@ -98,10 +105,8 @@ namespace MapExplorer
         private void Search_Click(object sender, EventArgs e)
         {
             HideDirections();
-            _isRouteSearch = false;
-            SearchTextBox.SelectAll();
-            SearchTextBox.Visibility = Visibility.Visible;
-            SearchTextBox.Focus();
+            _isEventSearch = !_isEventSearch;
+            EventPanel.Visibility = _isEventSearch ? Visibility.Visible : Visibility.Collapsed;
         }
 
         /// <summary>
@@ -129,13 +134,6 @@ namespace MapExplorer
             else if (MyCoordinate == null)
             {
                 MessageBox.Show(AppResources.NoCurrentLocationMessageBoxText, AppResources.ApplicationTitle, MessageBoxButton.OK);
-            }
-            else
-            {
-                _isRouteSearch = true;
-                SearchTextBox.SelectAll();
-                SearchTextBox.Visibility = Visibility.Visible;
-                SearchTextBox.Focus();
             }
         }
 
@@ -173,40 +171,6 @@ namespace MapExplorer
         {
             MapDownloaderTask mapDownloaderTask = new MapDownloaderTask();
             mapDownloaderTask.Show();
-        }
-
-        /// <summary>
-        /// Event handler for search input text box key down.
-        /// </summary>
-        private void SearchTextBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                if (SearchTextBox.Text.Length > 0)
-                {
-                    // New query - Clear the map of markers and routes
-                    if (MyMapRoute != null)
-                    {
-                        MyMap.RemoveRoute(MyMapRoute);
-                    }
-                    MyCoordinates.Clear();
-                    DrawMapMarkers();
-
-                    HideDirections();
-                    AppBarDirectionsMenuItem.IsEnabled = false;
-
-                    SearchForTerm(SearchTextBox.Text);
-                    this.Focus();
-                }
-            }
-        }
-
-        /// <summary>
-        /// Event handler for search input text box losing focus.
-        /// </summary>
-        private void SearchTextBox_LostFocus(object sender, EventArgs e)
-        {
-            SearchTextBox.Visibility = Visibility.Collapsed;
         }
 
         /// <summary>
@@ -463,7 +427,7 @@ namespace MapExplorer
             {
                 if (e.Result.Count > 0)
                 {
-                    if (_isRouteSearch) // Query is made to locate the destination of a route
+                    if (_isEventSearch) // Query is made to locate the destination of a route
                     {
                         // Only store the destination for drawing the map markers
                         MyCoordinates.Add(e.Result[0].GeoCoordinate);
@@ -524,7 +488,7 @@ namespace MapExplorer
                 MyMap.AddRoute(MyMapRoute);
 
                 // Update route information and directions
-                DestinationText.Text = SearchTextBox.Text;
+                DestinationText.Text = ""; // TODO Routing dest
                 double distanceInKm = (double)MyRoute.LengthInMeters / 1000;
                 DestinationDetailsText.Text = distanceInKm.ToString("0.0") + " km, "
                                               + MyRoute.EstimatedDuration.Hours + " hrs "
@@ -686,11 +650,16 @@ namespace MapExplorer
             MyMap.Layers.Add(mapLayer);
         }
 
+        private void showEvents()
+        {
+            
+        }
+
         private void plotEvents()
         {
-            EventList events_json = new EventList();
-            if (_isEventsFound)
-            {
+            events_json = new EventList();
+
+            if (_isEventsFound) {
                 events_json = JsonConvert.DeserializeObject<EventList>(events_data);
                 var integer = events_json.events.Count;
                 
@@ -856,6 +825,7 @@ namespace MapExplorer
             appBarDownloadButton.Click += new EventHandler(Download_Click);
             ApplicationBar.Buttons.Add(appBarDownloadButton);
 
+            /* HEEEEEEREEEEEE App resources */
             // Create new menu items with the localized strings from AppResources.
             AppBarColorModeMenuItem = new ApplicationBarMenuItem(AppResources.ColorModeDarkMenuItemText);
             AppBarColorModeMenuItem.Click += new EventHandler(ColorMode_Click);
@@ -983,7 +953,7 @@ namespace MapExplorer
         /// <summary>
         /// True when route is being searched, otherwise false
         /// </summary>
-        private bool _isRouteSearch = false;
+        private bool _isEventSearch = false;
 
         /// <summary>
         /// True when directions are shown, otherwise false
