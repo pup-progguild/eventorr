@@ -55,9 +55,11 @@ namespace MapExplorer
                     LocationPanel.Visibility = Visibility.Collapsed;
                     BuildApplicationBar();
                     GetCurrentCoordinate();
+                    ReverseGeocodeMyLocation();
+                    GetEvents();
                 }
             }
-            
+
             DrawMapMarkers();
         }
 
@@ -72,7 +74,10 @@ namespace MapExplorer
             {
                 _isLocationAllowed = true;
                 SaveSettings();
+
                 GetCurrentCoordinate();
+                ReverseGeocodeMyLocation();
+                GetEvents();
             }
         }
 
@@ -116,7 +121,9 @@ namespace MapExplorer
                 {
                     _isLocationAllowed = true;
                     SaveSettings();
+
                     GetCurrentCoordinate();
+                    ReverseGeocodeMyLocation();
                 }
             }
             else if (MyCoordinate == null)
@@ -140,6 +147,8 @@ namespace MapExplorer
             if (_isLocationAllowed)
             {
                 GetCurrentCoordinate();
+                ReverseGeocodeMyLocation();
+                GetEvents();
             }
             else
             {
@@ -152,6 +161,7 @@ namespace MapExplorer
                     _isLocationAllowed = true;
                     SaveSettings();
                     GetCurrentCoordinate();
+                    ReverseGeocodeMyLocation();
                 }
             }
         }
@@ -396,6 +406,7 @@ namespace MapExplorer
         /// </summary>
         private void ZoomLevelChanged(object sender, EventArgs e)
         {
+            
             DrawMapMarkers();
         }
 
@@ -620,6 +631,7 @@ namespace MapExplorer
                 Dispatcher.BeginInvoke(() =>
                 {
                     MyCoordinate = new GeoCoordinate(currentPosition.Coordinate.Latitude, currentPosition.Coordinate.Longitude);
+                    plotEvents();
                     DrawMapMarkers();
                     MyMap.SetView(MyCoordinate, 10, MapAnimationKind.Parabolic);
                 });
@@ -663,13 +675,11 @@ namespace MapExplorer
                 }
             }
 
-            GetEvents();
-            plotEvents();
-
             /// TODO flag where the eff are the events
-            if (_isEventsCoordinated) {
-                foreach (var geoCoordinate in myEventsList) {
-                    DrawMapMarker(geoCoordinate, Colors.Green, mapLayer);
+            if (_isEventsCoordinated)
+            {
+                for (int i = 0; i < myEventsList.Count; i++) {
+                    DrawMapMarker(myEventsList[i], Colors.Green, mapLayer);
                 }
             }
 
@@ -679,31 +689,37 @@ namespace MapExplorer
         private void plotEvents()
         {
             EventList events_json = new EventList();
-
-            if (_isEventsFound) {
+            if (_isEventsFound)
+            {
                 events_json = JsonConvert.DeserializeObject<EventList>(events_data);
+                var integer = events_json.events.Count;
+                
+                for (int i = 0; i < integer; i++) {
+                    myEventsList.Add(new GeoCoordinate(Double.Parse(events_json.events[i].latitude), Double.Parse(events_json.events[i].longitude)));
+                }
                 _isEventsCoordinated = true;
-                var integer = events_json.singleevents.Count;
-            } else {
+            }
+            else
+            {
                 _isEventsCoordinated = false;
             }
-
-            
         }
 
 
         private void GetEvents()
         {
             var url =
-                "https://raw.github.com/pup-progguild/eventorr/master/sample.json";
+                "https://gist.github.com/awkwardusername/7725869/raw/b9024355aa763fe163543f4ccdb793609f027ede/sample.json";
 
             WebClient client = new WebClient();
             Uri uri = new Uri(url);
 
             // Specify that the DownloadStringCallback2 method gets called 
             // when the download completes.
-            client.DownloadStringCompleted += new DownloadStringCompletedEventHandler(eventsCallback);      
+            client.DownloadStringCompleted += eventsCallback;
             client.DownloadStringAsync(uri);
+
+            plotEvents();
         }
 
         private void eventsCallback(object sender, DownloadStringCompletedEventArgs e)
@@ -711,13 +727,49 @@ namespace MapExplorer
             events_data = string.Empty;
             if (!e.Cancelled && e.Error == null)
             {
+                
+                events_data = e.Result;
                 _isEventsFound = true;
-                events_data = (string)e.Result;
-        } else {
+            }
+            else
+            {
 
                 _isEventsFound = false;
             }
 
+        }
+
+        private void ReverseGeocodeMyLocation()
+        {
+            if (MyCoordinate != null)
+            {
+                if (MyReverseGeocodeQuery == null || !MyReverseGeocodeQuery.IsBusy)
+                {
+                    MyReverseGeocodeQuery = new ReverseGeocodeQuery();
+                    MyReverseGeocodeQuery.GeoCoordinate = new GeoCoordinate(MyCoordinate.Latitude, MyCoordinate.Latitude);
+                    MyReverseGeocodeQuery.QueryCompleted += MyReverseGeoCodeQueryCompleted;
+                    MyReverseGeocodeQuery.QueryAsync();
+                }
+            }
+        }
+
+        private void MyReverseGeoCodeQueryCompleted(object sender, QueryCompletedEventArgs<IList<MapLocation>> e)
+        {
+            if (e.Error == null)
+            {
+                if (e.Result.Count > 0)
+                {
+                    MapAddress address = e.Result[0].Information.Address;
+                    String msgBoxText = "";
+                    myCity = address.City;
+                    myCountry = address.CountryCode;
+                }
+                else
+                {
+                    MessageBox.Show(AppResources.NoInfoMessageBoxText, AppResources.ApplicationTitle, MessageBoxButton.OK);
+                }
+                MyReverseGeocodeQuery.Dispose();
+            }
         }
 
         /// <summary>
@@ -973,6 +1025,16 @@ namespace MapExplorer
         /// My Events store
         /// </summary>
         private List<GeoCoordinate> myEventsList = new List<GeoCoordinate>();
+
+        /// <summary>
+        /// My current reverse geocoded city
+        /// </summary>
+        private string myCity = null;
+
+        /// <summary>
+        /// My current reverse geocoded country
+        /// </summary>
+        private string myCountry = null;
 
     }
 }
