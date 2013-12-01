@@ -126,7 +126,7 @@
     <comment>Controls the Language and ensures that the font for all elements in the RootFrame aligns with the app's language. Set to the language code of this resource file's language.</comment>
   </data>
   <data name="ApplicationTitle" xml:space="preserve">
-    <value>MAP EXPLORER</value>
+    <value>EVENTORR</value>
   </data>
   <data name="AppBarMenuItemText" xml:space="preserve">
     <value>Menu Item</value>
@@ -177,13 +177,13 @@
     <value>searching...</value>
   </data>
   <data name="AboutPageCopyrightText" xml:space="preserve">
-    <value>Developed and published by Nokia. All rights reserved.</value>
+    <value>Based on Map Explorer that is developed and published by Nokia. All rights reserved.</value>
   </data>
   <data name="AboutPageDescriptionText" xml:space="preserve">
-    <value>Map Explorer application is a Nokia Developer example demonstrating the use of the map component of Windows Phone 8.</value>
+    <value>Eventorr is an awesome WP8 app for events and stuff.</value>
   </data>
   <data name="AboutPageDeveloperUrl" xml:space="preserve">
-    <value>http://projects.developer.nokia.com/mapexplorer</value>
+    <value>http://github.com/pup-progguild/eventorr</value>
   </data>
   <data name="AboutPageLearnMoreText" xml:space="preserve">
     <value>Learn more at </value>
