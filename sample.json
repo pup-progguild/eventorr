@@ -1,44 +1,50 @@
 {
-	"singleevents": [
-		{
-			"singleeventid": "1",
-			"singleeventname": "test1",
-			"lat": "14.640641",
-			"longitude": "121.01487400000001",
-			"imageloc": "null",
-			"singleeventdate": "2013-12-04"
-		},
-		{
-			"singleeventid": "2",
-			"singleeventname": "test2",
-			"lat": "14.485917000000001",
-			"longitude": "121.039772",
-			"imageloc": "null",
-			"singleeventdate": "2013-12-05"
-		},
-		{
-			"singleeventid": "3",
-			"singleeventname": "test3",
-			"lat": "14.564665",
-			"longitude": "120.99233700000001",
-			"imageloc": "null",
-			"singleeventdate": "2014-12-04"
-		},
-		{
-			"singleeventid": "4",
-			"singleeventname": "test4",
-			"lat": "14.550955",
-			"longitude": "121.019111",
-			"imageloc": "null",
-			"singleeventdate": "2014-1-04"
-		},
-		{
-			"singleeventid": "5",
-			"singleeventname": "test5",
-			"lat": "14.556952000000001",
-			"longitude": "121.020205",
-			"imageloc": "null",
-			"singleeventdate": "2013-12-31"
-		}
-	]
+  "events": [
+    {
+      "eventid": "123412",
+      "eventname": "dfgs gsfg",
+      "latitude": "14.485917000000001",
+      "longitude": "121.039772",
+      "imageloc": null,
+      "eventdate": "2013-12-19",
+      "description": "This is an awesome event"
+    },
+    {
+      "eventid": "123413",
+      "eventname": "evens2",
+      "latitude": "14.550955",
+      "longitude": "121.019111",
+      "imageloc": null,
+      "eventdate": "2013-12-15",
+      "description": "This is an awesome event too"
+    },
+    {
+      "eventid": "242354",
+      "eventname": "EVENT 4",
+      "latitude": "14.564665",
+      "longitude": "120.99233700000001",
+      "imageloc": null,
+      "eventdate": "2014-01-16",
+      "description": "This is an awesome event three"
+    },
+    {
+      "eventid": "5234523",
+      "eventname": "tesn",
+      "latitude": "14.556952000000001",
+      "longitude": "121.020205",
+      "imageloc": null,
+      "eventdate": "2013-12-19",
+      "description": "This is an awesome event four"
+    },
+    {
+      "eventid": "12341324",
+      "eventname": "test",
+      "latitude": "14.640641",
+      "longitude": "-121.01487400000001",
+      "imageloc": null,
+      "eventdate": "2013-12-04",
+      "description": "This is an awesome event five"
+    }
+  ],
+  "success": 1
 }

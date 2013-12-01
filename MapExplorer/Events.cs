@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Device.Location;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
@@ -22,5 +23,6 @@ namespace MapExplorer
         public string longitude { get; set; }
         public string imageloc { get; set; }
         public string eventdate { get; set; }
+        public string description { get; set; }
     }
 }
