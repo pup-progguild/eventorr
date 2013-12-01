@@ -70,7 +70,7 @@ namespace EventorrWP.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Developed and published by Nokia. All rights reserved..
+        ///   Looks up a localized string similar to Based on Map Explorer that is developed and published by Nokia. All rights reserved..
         /// </summary>
         public static string AboutPageCopyrightText {
             get {
@@ -79,7 +79,7 @@ namespace EventorrWP.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Map Explorer application is a Nokia Developer example demonstrating the use of the map component of Windows Phone 8..
+        ///   Looks up a localized string similar to Eventorr is an awesome WP8 app for events and stuff..
         /// </summary>
         public static string AboutPageDescriptionText {
             get {
@@ -88,7 +88,7 @@ namespace EventorrWP.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to http://projects.developer.nokia.com/mapexplorer.
+        ///   Looks up a localized string similar to http://github.com/pup-progguild/eventorr.
         /// </summary>
         public static string AboutPageDeveloperUrl {
             get {
@@ -133,7 +133,7 @@ namespace EventorrWP.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to MAP EXPLORER.
+        ///   Looks up a localized string similar to EVENTORR.
         /// </summary>
         public static string ApplicationTitle {
             get {
