@@ -34,13 +34,17 @@ namespace MapExplorer
 {
     public partial class MainPage : PhoneApplicationPage
     {
-        private EventList _events_json;
+        private EventList _eventList;
 
-        public EventList events_json
+        /// <summary>
+        /// The extracted event list from EventBrite, etc.
+        /// </summary>
+        public EventList EventList
         {
-            get { return _events_json; }
-            set { _events_json = value; }
+            get { return _eventList; }
+            set { _eventList = value; }
         }
+        
         // Constructor
         public MainPage()
         {
@@ -62,13 +66,14 @@ namespace MapExplorer
                     LocationPanel.Visibility = Visibility.Collapsed;
                     BuildApplicationBar();
                     GetCurrentCoordinate();
-                    ReverseGeocodeMyLocation();
-                    GetEvents();
                 }
             }
-
+            
             DrawMapMarkers();
         }
+
+
+        #region Event Handlers
 
         /// <summary>
         /// Event handler for location usage permission at startup.
@@ -81,10 +86,7 @@ namespace MapExplorer
             {
                 _isLocationAllowed = true;
                 SaveSettings();
-
                 GetCurrentCoordinate();
-                ReverseGeocodeMyLocation();
-                GetEvents();
             }
         }
 
@@ -126,9 +128,7 @@ namespace MapExplorer
                 {
                     _isLocationAllowed = true;
                     SaveSettings();
-
                     GetCurrentCoordinate();
-                    ReverseGeocodeMyLocation();
                 }
             }
             else if (MyCoordinate == null)
@@ -145,8 +145,6 @@ namespace MapExplorer
             if (_isLocationAllowed)
             {
                 GetCurrentCoordinate();
-                ReverseGeocodeMyLocation();
-                GetEvents();
             }
             else
             {
@@ -159,7 +157,6 @@ namespace MapExplorer
                     _isLocationAllowed = true;
                     SaveSettings();
                     GetCurrentCoordinate();
-                    ReverseGeocodeMyLocation();
                 }
             }
         }
@@ -370,50 +367,7 @@ namespace MapExplorer
         /// </summary>
         private void ZoomLevelChanged(object sender, EventArgs e)
         {
-            
             DrawMapMarkers();
-        }
-
-        /// <summary>
-        /// Method for showing directions panel on main page.
-        /// </summary>
-        private void ShowDirections()
-        {
-            _isDirectionsShown = true;
-            AppBarDirectionsMenuItem.Text = AppResources.DirectionsOffMenuItemText;
-            DirectionsTitleRowDefinition.Height = GridLength.Auto;
-            DirectionsRowDefinition.Height = new GridLength(2, GridUnitType.Star);
-            ModePanel.Visibility = Visibility.Collapsed;
-            HeadingSlider.Visibility = Visibility.Collapsed;
-            PitchSlider.Visibility = Visibility.Collapsed;
-        }
-
-        /// <summary>
-        /// Method for hiding directions panel on main page.
-        /// </summary>
-        private void HideDirections()
-        {
-            _isDirectionsShown = false;
-            AppBarDirectionsMenuItem.Text = AppResources.DirectionsOnMenuItemText;
-            DirectionsTitleRowDefinition.Height = new GridLength(0);
-            DirectionsRowDefinition.Height = new GridLength(0);
-            ModePanel.Visibility = Visibility.Visible;
-            HeadingSlider.Visibility = Visibility.Visible;
-            PitchSlider.Visibility = Visibility.Visible;
-        }
-
-        /// <summary>
-        /// Method to initiate a geocode query for a search term.
-        /// </summary>
-        /// <param name="searchTerm">Search term for location or destination</param>
-        private void SearchForTerm(String searchTerm)
-        {
-            ShowProgressIndicator(AppResources.SearchingProgressText);
-            MyGeocodeQuery = new GeocodeQuery();
-            MyGeocodeQuery.SearchTerm = searchTerm;
-            MyGeocodeQuery.GeoCoordinate = MyCoordinate == null ? new GeoCoordinate(0, 0) : MyCoordinate;
-            MyGeocodeQuery.QueryCompleted += GeocodeQuery_QueryCompleted;
-            MyGeocodeQuery.QueryAsync();
         }
 
         /// <summary>
@@ -458,20 +412,6 @@ namespace MapExplorer
                 MyGeocodeQuery.Dispose();
             }
             DrawMapMarkers();
-        }
-
-        /// <summary>
-        /// Method to initiate a route query.
-        /// </summary>
-        /// <param name="route">List of geocoordinates representing the route</param>
-        private void CalculateRoute(List<GeoCoordinate> route)
-        {
-            ShowProgressIndicator(AppResources.CalculatingRouteProgressText);
-            MyRouteQuery = new RouteQuery();
-            MyRouteQuery.TravelMode = _travelMode;
-            MyRouteQuery.Waypoints = route;
-            MyRouteQuery.QueryCompleted += RouteQuery_QueryCompleted;
-            MyRouteQuery.QueryAsync();
         }
 
         /// <summary>
@@ -577,6 +517,80 @@ namespace MapExplorer
             }
         }
 
+        private void DownloadCompletedCallback(object sender, DownloadStringCompletedEventArgs e)
+        {
+            events_data = string.Empty;
+            if (!e.Cancelled && e.Error == null)
+            {
+                _isEventsFound = true;
+                events_data = (string)e.Result;
+            }
+            else
+            {
+
+                _isEventsFound = false;
+            }
+
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Method for showing directions panel on main page.
+        /// </summary>
+        private void ShowDirections()
+        {
+            _isDirectionsShown = true;
+            AppBarDirectionsMenuItem.Text = AppResources.DirectionsOffMenuItemText;
+            DirectionsTitleRowDefinition.Height = GridLength.Auto;
+            DirectionsRowDefinition.Height = new GridLength(2, GridUnitType.Star);
+            ModePanel.Visibility = Visibility.Collapsed;
+            HeadingSlider.Visibility = Visibility.Collapsed;
+            PitchSlider.Visibility = Visibility.Collapsed;
+        }
+
+        /// <summary>
+        /// Method for hiding directions panel on main page.
+        /// </summary>
+        private void HideDirections()
+        {
+            _isDirectionsShown = false;
+            AppBarDirectionsMenuItem.Text = AppResources.DirectionsOnMenuItemText;
+            DirectionsTitleRowDefinition.Height = new GridLength(0);
+            DirectionsRowDefinition.Height = new GridLength(0);
+            ModePanel.Visibility = Visibility.Visible;
+            HeadingSlider.Visibility = Visibility.Visible;
+            PitchSlider.Visibility = Visibility.Visible;
+        }
+
+        /// <summary>
+        /// Method to initiate a geocode query for a search term.
+        /// </summary>
+        /// <param name="searchTerm">Search term for location or destination</param>
+        private void SearchForTerm(String searchTerm)
+        {
+            ShowProgressIndicator(AppResources.SearchingProgressText);
+            MyGeocodeQuery = new GeocodeQuery();
+            MyGeocodeQuery.SearchTerm = searchTerm;
+            MyGeocodeQuery.GeoCoordinate = MyCoordinate == null ? new GeoCoordinate(0, 0) : MyCoordinate;
+            MyGeocodeQuery.QueryCompleted += GeocodeQuery_QueryCompleted;
+            MyGeocodeQuery.QueryAsync();
+        }
+
+        /// <summary>
+        /// Method to initiate a route query.
+        /// </summary>
+        /// <param name="route">List of geocoordinates representing the route</param>
+        private void CalculateRoute(List<GeoCoordinate> route)
+        {
+            ShowProgressIndicator(AppResources.CalculatingRouteProgressText);
+            MyRouteQuery = new RouteQuery();
+            MyRouteQuery.TravelMode = _travelMode;
+            MyRouteQuery.Waypoints = route;
+            MyRouteQuery.QueryCompleted += RouteQuery_QueryCompleted;
+            MyRouteQuery.QueryAsync();
+        }
+
         /// <summary>
         /// Method to get current coordinate asynchronously so that the UI thread is not blocked. Updates MyCoordinate.
         /// Using Location API requires ID_CAP_LOCATION capability to be included in the Application manifest file.
@@ -595,7 +609,6 @@ namespace MapExplorer
                 Dispatcher.BeginInvoke(() =>
                 {
                     MyCoordinate = new GeoCoordinate(currentPosition.Coordinate.Latitude, currentPosition.Coordinate.Longitude);
-                    plotEvents();
                     DrawMapMarkers();
                     MyMap.SetView(MyCoordinate, 10, MapAnimationKind.Parabolic);
                 });
@@ -639,37 +652,33 @@ namespace MapExplorer
                 }
             }
 
+            GetEvents();
+            PlotEvents();
+
             /// TODO flag where the eff are the events
-            if (_isEventsCoordinated)
-            {
-                for (int i = 0; i < myEventsList.Count; i++) {
-                    DrawMapMarker(myEventsList[i], Colors.Green, mapLayer);
+            if (_isEventsCoordinated) {
+                foreach (var geoCoordinate in myEventsList) {
+                    DrawMapMarker(geoCoordinate, Colors.Green, mapLayer);
                 }
             }
 
             MyMap.Layers.Add(mapLayer);
         }
 
-        private void showEvents()
+        private void ShowEvents()
         {
             
         }
 
-        private void plotEvents()
+        private void PlotEvents()
         {
-            events_json = new EventList();
+            this._eventList = new EventList();
 
             if (_isEventsFound) {
-                events_json = JsonConvert.DeserializeObject<EventList>(events_data);
-                var integer = events_json.events.Count;
-                
-                for (int i = 0; i < integer; i++) {
-                    myEventsList.Add(new GeoCoordinate(Double.Parse(events_json.events[i].latitude), Double.Parse(events_json.events[i].longitude)));
-                }
+                this._eventList = JsonConvert.DeserializeObject<EventList>(events_data);
                 _isEventsCoordinated = true;
-            }
-            else
-            {
+                //var integer = App.events_json.events.Count;
+            } else {
                 _isEventsCoordinated = false;
             }
         }
@@ -678,67 +687,15 @@ namespace MapExplorer
         private void GetEvents()
         {
             var url =
-                "https://gist.github.com/awkwardusername/7725869/raw/b9024355aa763fe163543f4ccdb793609f027ede/sample.json";
+                "https://raw.github.com/pup-progguild/eventorr/master/sample.json";
 
             WebClient client = new WebClient();
             Uri uri = new Uri(url);
 
             // Specify that the DownloadStringCallback2 method gets called 
             // when the download completes.
-            client.DownloadStringCompleted += eventsCallback;
+            client.DownloadStringCompleted += new DownloadStringCompletedEventHandler(DownloadCompletedCallback);      
             client.DownloadStringAsync(uri);
-
-            plotEvents();
-        }
-
-        private void eventsCallback(object sender, DownloadStringCompletedEventArgs e)
-        {
-            events_data = string.Empty;
-            if (!e.Cancelled && e.Error == null)
-            {
-                
-                events_data = e.Result;
-                _isEventsFound = true;
-            }
-            else
-            {
-
-                _isEventsFound = false;
-            }
-
-        }
-
-        private void ReverseGeocodeMyLocation()
-        {
-            if (MyCoordinate != null)
-            {
-                if (MyReverseGeocodeQuery == null || !MyReverseGeocodeQuery.IsBusy)
-                {
-                    MyReverseGeocodeQuery = new ReverseGeocodeQuery();
-                    MyReverseGeocodeQuery.GeoCoordinate = new GeoCoordinate(MyCoordinate.Latitude, MyCoordinate.Latitude);
-                    MyReverseGeocodeQuery.QueryCompleted += MyReverseGeoCodeQueryCompleted;
-                    MyReverseGeocodeQuery.QueryAsync();
-                }
-            }
-        }
-
-        private void MyReverseGeoCodeQueryCompleted(object sender, QueryCompletedEventArgs<IList<MapLocation>> e)
-        {
-            if (e.Error == null)
-            {
-                if (e.Result.Count > 0)
-                {
-                    MapAddress address = e.Result[0].Information.Address;
-                    String msgBoxText = "";
-                    myCity = address.City;
-                    myCountry = address.CountryCode;
-                }
-                else
-                {
-                    MessageBox.Show(AppResources.NoInfoMessageBoxText, AppResources.ApplicationTitle, MessageBoxButton.OK);
-                }
-                MyReverseGeocodeQuery.Dispose();
-            }
         }
 
         /// <summary>
@@ -995,16 +952,6 @@ namespace MapExplorer
         /// My Events store
         /// </summary>
         private List<GeoCoordinate> myEventsList = new List<GeoCoordinate>();
-
-        /// <summary>
-        /// My current reverse geocoded city
-        /// </summary>
-        private string myCity = null;
-
-        /// <summary>
-        /// My current reverse geocoded country
-        /// </summary>
-        private string myCountry = null;
 
     }
 }
