@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Shapes;
 
-namespace MapExplorer
+namespace EventorrWP
 {
     public class EventDescription
     {

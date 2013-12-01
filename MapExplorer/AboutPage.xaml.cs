@@ -15,10 +15,10 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
-using MapExplorer.Resources;
+using EventorrWP.Resources;
 using System.Xml.Linq;
 
-namespace MapExplorer
+namespace EventorrWP
 {
     public partial class AboutPage : PhoneApplicationPage
     {

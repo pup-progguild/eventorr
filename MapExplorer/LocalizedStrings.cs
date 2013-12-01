@@ -6,9 +6,9 @@
  * See LICENSE.TXT for license information.
  */
 
-using MapExplorer.Resources;
+using EventorrWP.Resources;
 
-namespace MapExplorer
+namespace EventorrWP
 {
     /// <summary>
     /// Provides access to string resources.

@@ -6,12 +6,12 @@ using System.Resources;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("MapExplorer")]
+[assembly: AssemblyTitle("EventorrWP")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("MapExplorer")]
-[assembly: AssemblyCopyright("Copyright © 2011-2013 Nokia Corporation.")]
+[assembly: AssemblyProduct("EventorrWP")]
+[assembly: AssemblyCopyright("PUP Programming Guild")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

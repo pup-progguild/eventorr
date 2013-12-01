@@ -26,11 +26,11 @@ using Microsoft.Phone.Maps.Controls;
 using Microsoft.Phone.Maps.Services;
 using Microsoft.Phone.Shell;
 using Microsoft.Phone.Tasks;
-using MapExplorer.Resources;
+using EventorrWP.Resources;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace MapExplorer
+namespace EventorrWP
 {
     public partial class MainPage : PhoneApplicationPage
     {

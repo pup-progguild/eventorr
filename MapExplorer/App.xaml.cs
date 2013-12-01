@@ -23,9 +23,9 @@ using Microsoft.Phone.Shell;
 using Microsoft.Phone.Maps.Controls;
 using System.Diagnostics;
 using System.Windows.Markup;
-using MapExplorer.Resources;
+using EventorrWP.Resources;
 
-namespace MapExplorer
+namespace EventorrWP
 {
     public partial class App : Application
     {
