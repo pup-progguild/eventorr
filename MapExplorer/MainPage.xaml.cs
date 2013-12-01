@@ -13,7 +13,6 @@ using System.IO.IsolatedStorage;
 using System.Linq;
 using System.Net;
 using System.Runtime.Serialization.Json;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -371,7 +370,7 @@ namespace MapExplorer
         /// </summary>
         private void ZoomLevelChanged(object sender, EventArgs e)
         {
-            
+
             DrawMapMarkers();
         }
 
@@ -535,44 +534,48 @@ namespace MapExplorer
         /// Event handler for clicking a map marker. 
         /// Initiates reverse geocode query.
         /// </summary>
-        private void Marker_Click(object sender, EventArgs e) {
-
-            Polygon p = (Polygon)(sender);
-
-            string details = "";
-
-            MessageBox.Show(details, AppResources.ApplicationTitle, MessageBoxButton.OK);
+        private void Marker_Click(object sender, EventArgs e)
+        {
+            Polygon p = (Polygon)sender;
+            GeoCoordinate geoCoordinate = (GeoCoordinate)p.Tag;
+            if (MyReverseGeocodeQuery == null || !MyReverseGeocodeQuery.IsBusy)
+            {
+                MyReverseGeocodeQuery = new ReverseGeocodeQuery();
+                MyReverseGeocodeQuery.GeoCoordinate = new GeoCoordinate(geoCoordinate.Latitude, geoCoordinate.Longitude);
+                MyReverseGeocodeQuery.QueryCompleted += ReverseGeocodeQuery_QueryCompleted;
+                MyReverseGeocodeQuery.QueryAsync();
+            }
         }
 
-        ///// <summary>
-        ///// Event handler for reverse geocode query.
-        ///// </summary>
-        ///// <param name="e">Results of the reverse geocode query - list of locations</param>
-        //private void ReverseGeocodeQuery_QueryCompleted(object sender, QueryCompletedEventArgs<IList<MapLocation>> e)
-        //{
-        //    if (e.Error == null)
-        //    {
-        //        if (e.Result.Count > 0)
-        //        {
-        //            MapAddress address = e.Result[0].Information.Address;
-        //            String msgBoxText = "";
-        //            if (address.Street.Length > 0)
-        //            {
-        //                msgBoxText += "\n" + address.Street;
-        //                if (address.HouseNumber.Length > 0) msgBoxText += " " + address.HouseNumber;
-        //            }
-        //            if (address.PostalCode.Length > 0) msgBoxText += "\n" + address.PostalCode;
-        //            if (address.City.Length > 0) msgBoxText += "\n" + address.City;
-        //            if (address.Country.Length > 0) msgBoxText += "\n" + address.Country;
-        //            MessageBox.Show(msgBoxText, AppResources.ApplicationTitle, MessageBoxButton.OK);
-        //        }
-        //        else
-        //        {
-        //            MessageBox.Show(AppResources.NoInfoMessageBoxText, AppResources.ApplicationTitle, MessageBoxButton.OK);
-        //        }
-        //        MyReverseGeocodeQuery.Dispose();
-        //    }
-        //}
+        /// <summary>
+        /// Event handler for reverse geocode query.
+        /// </summary>
+        /// <param name="e">Results of the reverse geocode query - list of locations</param>
+        private void ReverseGeocodeQuery_QueryCompleted(object sender, QueryCompletedEventArgs<IList<MapLocation>> e)
+        {
+            if (e.Error == null)
+            {
+                if (e.Result.Count > 0)
+                {
+                    MapAddress address = e.Result[0].Information.Address;
+                    String msgBoxText = "";
+                    if (address.Street.Length > 0)
+                    {
+                        msgBoxText += "\n" + address.Street;
+                        if (address.HouseNumber.Length > 0) msgBoxText += " " + address.HouseNumber;
+                    }
+                    if (address.PostalCode.Length > 0) msgBoxText += "\n" + address.PostalCode;
+                    if (address.City.Length > 0) msgBoxText += "\n" + address.City;
+                    if (address.Country.Length > 0) msgBoxText += "\n" + address.Country;
+                    MessageBox.Show(msgBoxText, AppResources.ApplicationTitle, MessageBoxButton.OK);
+                }
+                else
+                {
+                    MessageBox.Show(AppResources.NoInfoMessageBoxText, AppResources.ApplicationTitle, MessageBoxButton.OK);
+                }
+                MyReverseGeocodeQuery.Dispose();
+            }
+        }
 
         /// <summary>
         /// Method to get current coordinate asynchronously so that the UI thread is not blocked. Updates MyCoordinate.
@@ -639,38 +642,32 @@ namespace MapExplorer
             /// TODO flag where the eff are the events
             if (_isEventsCoordinated)
             {
-                for (int i = 0; i < myEventsList.Count; i++) {
-                    DrawMapMarker(myEventsList[i].geocoords, Colors.Green, mapLayer);
-                    DetailEventView(myEventsList[i]);
+                for (int i = 0; i < myEventsList.Count; i++)
+                {
+                    DrawMapMarker(myEventsList[i], Colors.Green, mapLayer);
                 }
             }
 
             MyMap.Layers.Add(mapLayer);
         }
 
-        private void DetailEventView(EventDescription myEvents) {
-            
-        }
-
         private void showEvents()
         {
-            
+
         }
 
         private void plotEvents()
         {
             events_json = new EventList();
-            
 
-            if (_isEventsFound) {
+            if (_isEventsFound)
+            {
                 events_json = JsonConvert.DeserializeObject<EventList>(events_data);
                 var integer = events_json.events.Count;
-                for (int i = 0; i < integer; i++) {
-                    var eventDescription = new EventDescription();
-                    eventDescription.eventDetails = events_json.events[i];
-                    eventDescription.geocoords = new GeoCoordinate(Double.Parse(events_json.events[i].latitude),
-                        Double.Parse(events_json.events[i].longitude));
-                    myEventsList.Add(eventDescription);
+
+                for (int i = 0; i < integer; i++)
+                {
+                    myEventsList.Add(new GeoCoordinate(Double.Parse(events_json.events[i].latitude), Double.Parse(events_json.events[i].longitude)));
                 }
                 _isEventsCoordinated = true;
             }
@@ -702,7 +699,7 @@ namespace MapExplorer
             events_data = string.Empty;
             if (!e.Cancelled && e.Error == null)
             {
-                
+
                 events_data = e.Result;
                 _isEventsFound = true;
             }
@@ -756,20 +753,19 @@ namespace MapExplorer
         private void DrawMapMarker(GeoCoordinate coordinate, Color color, MapLayer mapLayer)
         {
             // Create a map marker
-            PolygonDetails polygonDetails = new PolygonDetails();
-            polygonDetails.polygon = new Polygon();
-            polygonDetails.polygon.Points.Add(new Point(0, 0));
-            polygonDetails.polygon.Points.Add(new Point(0, 75));
-            polygonDetails.polygon.Points.Add(new Point(25, 0));
-            polygonDetails.polygon.Fill = new SolidColorBrush(color);
+            Polygon polygon = new Polygon();
+            polygon.Points.Add(new Point(0, 0));
+            polygon.Points.Add(new Point(0, 75));
+            polygon.Points.Add(new Point(25, 0));
+            polygon.Fill = new SolidColorBrush(color);
 
             // Enable marker to be tapped for location information
-            polygonDetails.polygon.Tag = polygonDetails;
-            polygonDetails.polygon.MouseLeftButtonUp += new MouseButtonEventHandler(Marker_Click);
+            polygon.Tag = new GeoCoordinate(coordinate.Latitude, coordinate.Longitude);
+            polygon.MouseLeftButtonUp += new MouseButtonEventHandler(Marker_Click);
 
             // Create a MapOverlay and add marker.
             MapOverlay overlay = new MapOverlay();
-            overlay.Content = polygonDetails.polygon;
+            overlay.Content = polygon;
             overlay.GeoCoordinate = new GeoCoordinate(coordinate.Latitude, coordinate.Longitude);
             overlay.PositionOrigin = new Point(0.0, 1.0);
             mapLayer.Add(overlay);
@@ -1001,7 +997,7 @@ namespace MapExplorer
         /// <summary>
         /// My Events store
         /// </summary>
-        private List<EventDescription> myEventsList = new List<EventDescription>();
+        private List<GeoCoordinate> myEventsList = new List<GeoCoordinate>();
 
         /// <summary>
         /// My current reverse geocoded city
