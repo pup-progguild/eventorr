@@ -30,7 +30,7 @@
             </StackPanel>
         </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
-    
+
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid.RowDefinitions>
@@ -44,7 +44,7 @@
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,12">
             <TextBlock Text="{Binding Path=LocalizedResources.ApplicationTitle, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextNormalStyle}"/>
         </StackPanel>
-        
+
         <!-- For rotating controls. In the mean time, let's just put this here. -->
         <Grid Height="89" Margin="10,22,10,0" VerticalAlignment="Top" Background="{StaticResource PhoneBackgroundBrush}" Grid.Row="1">
             <Slider x:Name="HeadingSlider" VerticalAlignment="Bottom" Height="80" Margin="78,0,0,10" Maximum="540" Minimum="180" Value="360" ValueChanged="HeadingValueChanged" HorizontalAlignment="Left" Width="250"/>
@@ -53,14 +53,10 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="0,111,0,0">
-            <maps:Map x:Name="MyMap" ZoomLevelChanged="ZoomLevelChanged" Loaded="MyMap_Loaded" Grid.Row="1" Height="600" />
+            <maps:Map x:Name="MyMap" ZoomLevelChanged="ZoomLevelChanged" Loaded="MyMap_Loaded" Grid.Row="1" Height="600" d:IsHidden="True" />
             <Grid x:Name="EventPanel" HorizontalAlignment="Left" Width="480" Background="{StaticResource PhoneBackgroundBrush}" Height="325" VerticalAlignment="Bottom" Visibility="Collapsed">
-                <phone:LongListSelector x:Name="EventLLS" Margin="10" ItemsSource="{Binding events_json.eventshghjkjh}">
-                    <phone:LongListSelector.DataContext>
-                        <src:MainPage/>
-                    </phone:LongListSelector.DataContext>
-                    
-                    <phone:LongListSelector.ItemTemplate>
+                <phone:LongListSelector x:Name="EventLLS" Margin="10" ItemsSource="{Binding EventList}">
+                   <phone:LongListSelector.ItemTemplate>
                         <DataTemplate>
                             <StackPanel>
                                 <TextBlock Text="{Binding eventname}" FontSize="{StaticResource PhoneFontSizeMediumLarge}"/>
