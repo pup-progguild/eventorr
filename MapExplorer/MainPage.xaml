@@ -55,16 +55,16 @@
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="0,111,0,0">
             <maps:Map x:Name="MyMap" ZoomLevelChanged="ZoomLevelChanged" Loaded="MyMap_Loaded" Grid.Row="1" Height="600" />
             <Grid x:Name="EventPanel" HorizontalAlignment="Left" Width="480" Background="{StaticResource PhoneBackgroundBrush}" Height="325" VerticalAlignment="Bottom" Visibility="Collapsed">
-                <phone:LongListSelector x:Name="EventLLS" Margin="10" ItemsSource="{Binding events}">
+                <phone:LongListSelector x:Name="EventLLS" Margin="10" ItemsSource="{Binding events_json.eventshghjkjh}">
                     <phone:LongListSelector.DataContext>
-                        <src:EventList/>
+                        <src:MainPage/>
                     </phone:LongListSelector.DataContext>
                     
                     <phone:LongListSelector.ItemTemplate>
                         <DataTemplate>
                             <StackPanel>
-                                <TextBlock Text="{Binding events.eventname}" FontSize="{StaticResource PhoneFontSizeMediumLarge}"/>
-                                <TextBlock Text="{Binding events.eventdate}" FontSize="{StaticResource PhoneFontSizeSmall}"/>
+                                <TextBlock Text="{Binding eventname}" FontSize="{StaticResource PhoneFontSizeMediumLarge}"/>
+                                <TextBlock Text="{Binding description}" FontSize="{StaticResource PhoneFontSizeSmall}"/>
                             </StackPanel>
                         </DataTemplate>
                     </phone:LongListSelector.ItemTemplate>

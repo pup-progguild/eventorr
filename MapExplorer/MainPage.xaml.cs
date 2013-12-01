@@ -107,6 +107,7 @@ namespace EventorrWP
             HideDirections();
             _isEventSearch = !_isEventSearch;
             EventPanel.Visibility = _isEventSearch ? Visibility.Visible : Visibility.Collapsed;
+            MessageBox.Show(_events_json.events.Count + "");
         }
 
         /// <summary>
