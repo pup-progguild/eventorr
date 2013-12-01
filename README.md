@@ -1,145 +1,24 @@
-Map Explorer
-============
+Eventorr
+==============
 
-Map Explorer application demonstrates how to use the new Windows Phone 8 Map
-control replacing the Bing Maps control used in Windows 7, as well as how to
-use new map-related features, such as address search, locationing, and routes.
-Map Explorer is a simple Silverlight application which enables the user to
-change properties of the map component to see the effect on shown map.
+An application built on Windows Phone 8 platform that uses the Nokia Imaging API and HERE API to plot and preview events from Eventbrite. 
 
-The example has been developed with Silverlight for Windows Phone devices
-and tested to work on Nokia Lumia devices with Windows Phone 8.
+Using
+-------------
 
-This example application is hosted in GitHub:
-https://github.com/nokia-developer/map-explorer
+* [Visual Studio 2013](http://www.visualstudio.com/) - Visual Studio is a comprehensive collection of tools and services to help you create a wide variety of apps, both for the Microsoft platform and beyond. Visual Studio also connects all of your projects, teams, and stakeholders. Now your team can work with greater agility from virtually anywhere—irrespective of development tool, including Eclipse and Xcode. Whether you’re designing mission-critical .NET apps, writing blazing fast code with C++ AMP, or testing and debugging a cloud-connected HTML/JavaScript app that runs on many devices, join millions of developers worldwide in choosing Visual Studio as your essential development environment.
+* [PHP Storm](http://www.jetbrains.com/phpstorm/) - The editor that actually ‘gets’ your code and deeply understands its structure, supporting PHP 5.3, 5.4 & 5.5 for modern and legacy projects. Provides the best code autocompletion, refactorings, on-the-fly error prevention, supports language mixtures and more.
+* [Github](http://github.com) - GitHub is a web-based hosting service for software development projects that use the Git revision control system. GitHub offers both paid plans for private repositories, and free accounts for open source projects.
+* [HERE Location API](http://here.com/) - HERE has created the best map in the world for 30 years. Formerly known as NAVTEQ and Nokia Location & Commerce, we established our new unified brand in 2012. 
+Our brand promise is to help people navigate their lives with ease and confidence every day and everywhere. Our maps can be found in 4 out of 5 in-car navigation systems in North America and Europe. We have powered mobile and web companies for more than 10 years. Our customers include BMW, Garmin, Toyota, Yahoo and many more.
+HERE is a Nokia business, so our maps can be found on feature and smartphones around the globe.
+* [Nokia Imaging API](http://developer.nokia.com/) - Nokia offers a wide range of documentation about different technologies and development platforms to help you create cutting-edge applications and services for use on Nokia mobile devices. This section includes online guides, API documentation, and downloadable documents relevant to all developers, ranging from designers to programmers. Whether you are a beginner or an advanced user, choose your area of interest and get to work!
 
-For more information on implementation and porting, visit Nokia Lumia
-Developer's Library:
-http://developer.nokia.com/Resources/Library/Lumia/#!code-examples/map-explorer.html
+About Us
+--------
 
+We're the **PUP Programming Guild**, a bunch of students from the [Polytechnic University of the Philippines](http://www.pup.edu.ph) who consumes more time outside school, than inside classes. But really, we take our studies to heart. We deal with *competitions*, *hackathons*, and *action movies*.
 
-What's new
-----------
+---------------
 
-Version 1.1.0.0: Support for downloading maps. Mapping APIs T&C compliance.
-
-
-1. Usage
--------------------------------------------------------------------------------
-
-This is a simple build-and-run solution. Learn about Map properties and Map
-related features by trying out the application. 
-
-
-2. Prerequisites
--------------------------------------------------------------------------------
-
-* C# basics
-* Windows 8
-* Microsoft Visual Studio Express for Windows Phone 2012
-
-
-3. Project structure and implementation
--------------------------------------------------------------------------------
-
-3.1 Folders
------------
-
-* The root folder contains the project file, the license information and this
-  file (release_notes.txt).
-* `MapExplorer`: Root folder for the implementation files.  
- * `Assets`: Graphic assets like icons and tiles.
- * `Properties`: Application property files.
- * `Resources`: Application resources.
-
-3.2 Important files and classes
--------------------------------
-
-| File | Description |
-| ---- | ----------- |
-| `MainPage.xaml` | The main page of the application with its most important component, the map. |
-| `MainPage.xaml.cs` | The code-behind file of the main page. |
-
-| Class | Description |
-| ----- |------------ |
-| `MainPage` | This class is responsible for all the map related functionality of the app. |
-
-3.3 Used APIs/Windows Phone Components
---------------------------------------
-
-* Microsoft.Phone.Maps.Controls
-* Microsoft.Phone.Maps.Services
-* System.Device.Location
-* Windows.Devices.Geolocation
-
-
-4. Compatibility
--------------------------------------------------------------------------------
-
-* Windows Phone 8
-
-Tested to work on Nokia Lumia 820 and Nokia Lumia 920. 
-Developed with Microsoft Visual Studio Express for Windows Phone 2012.
-
-4.1 Required Capabilities
--------------------------
-
-* `ID_CAP_LOCATION`
-* `ID_CAP_MAP`
-* `ID_CAP_NETWORKING`
-* `ID_CAP_SENSORS`
-
-4.2 Known Issues
-----------------
-
-None.
-
-
-5. Building, installing, and running the application
--------------------------------------------------------------------------------
-
-5.1 Preparations
-----------------
-
-Make sure you have the following installed:
- * Windows 8
- * Windows Phone SDK 8.0
-
-5.2 Using the WINDOWS PHONE 8 SDK
----------------------------------
-
-1. Open the SLN file:
-   File > Open Project, select the file MapExplorer.sln
-2. Select the target 'Emulator WVGA'.
-3. Press F5 to build the project and run it on the Windows Phone Emulator.
-
-5.3 Deploying to Windows Phone 8
---------------------------------
-
-Please see official documentation for deploying and testing applications on
-Windows Phone devices:
-http://msdn.microsoft.com/en-us/library/gg588378%28v=vs.92%29.aspx
-
-
-6. License
--------------------------------------------------------------------------------
-
-See the license text file delivered with this project. The license file is also
-available online at
-https://github.com/nokia-developer/map-explorer/blob/master/Licence.txt
-
-
-7. Related documentation
--------------------------------------------------------------------------------
-
-An article "Guide to the Maps" published on Nokia Lumia Developer's Library
-(http://www.developer.nokia.com/Resources/Library/Lumia/#!guide-to-the-maps.html) 
-describes the properties and usage of map control and map-related features
-in detail using MapExplorer as an example.
-
-
-8. Version history
--------------------------------------------------------------------------------
-
-* 1.1.0.0 Support for downloading maps. Mapping APIs T&C compliance.
-* 1.0.0.0 First release.
+Like us on [Facebook](https://www.facebook.com/PupProgrammingGuild) or Follow us on [Twitter](https://twitter.com/pup_progguild).
